@@ -19,7 +19,7 @@ import (
 
 const (
 	// pathDataBase = "C:/Users/wpjav/Documents/convertbd/particionada"
-	pathDataBase        = "D:/Descargas/new enron/enron_mail_20110402"
+	pathDataBase        = "/home/eddiecinho/Escritorio/prueba-zinc-go-vue/Backend/Indexer/enron_mail_20110402"
 	emailMaxSize        = 1000000
 	fileEmailSize       = 700
 	emailZincSize       = 700
@@ -85,11 +85,11 @@ func main() {
 	}()
 
 	// Goroutine for emails transformation
-	go func() {
+	go func(emails chan string) {
 		for email := range emails {
 			go processEmail(email)
 		}
-	}()
+	}(emails)
 
 	//Read files of local databas
 	findPathFile(pathDataBase)
